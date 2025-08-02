@@ -5,29 +5,19 @@
 ## [0.1.1] - In progress
 
 ### Added
-- `README.md` for game details.
-- `CHANGELOG.md` to track changes across versions.
-- `CannonClass.luau` for cannon.
-- `CannonFactory.luau` for making instances of cannon.
-- `CannonUI.luau` for cannon UI.
-
-### Removed
-- None
-
-### Changed
-- None
-
+- `Main.server.luau` - Requires all server modules.
+- `Main.client.luau` - Requires all client modules.
+- `CannonClass.luau` - Contains core logic of cannon.
+- `CannonFactory.luau` - Creates cannon instances.
+- `CannonUI.luau` - Manages cannon user interface.
+- `README.md` - Contains game overview and development details.
+- `CHANGELOG.md` - Tracks changes across project versions.
+  
 ---
 
 ## [0.0.1] - 2025-07-27
 
 ### Added
 - Initialized the project structure.
-
-### Removed
-- None
-
-### Changed
-- None
 
 --- 
