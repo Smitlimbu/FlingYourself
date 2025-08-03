@@ -5,7 +5,7 @@ local StarterPlayerScripts: StarterPlayerScripts = script.Parent
 local modules: Folder = StarterPlayerScripts:WaitForChild("Modules")
 
 -- Require
-require(modules:WaitForChild("CannonUI"))
+require(modules:WaitForChild("CannonClient"))
 
 -- Log
 warn("All modules loaded successfully")
