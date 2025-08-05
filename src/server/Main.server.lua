@@ -5,7 +5,7 @@ local ServerScriptService: ServerScriptService = game:GetService("ServerScriptSe
 local modules: Folder = ServerScriptService:WaitForChild("Modules")
 
 -- Require
-require(modules:WaitForChild("CannonFactory"))
+require(modules:WaitForChild("CannonServer"))
 
 -- Log
 warn("All modules loaded successfully")
