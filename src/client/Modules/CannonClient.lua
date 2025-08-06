@@ -16,8 +16,6 @@ local requestExitCannon: RemoteEvent  = remotes:WaitForChild("RequestExitCannon"
 -- GUI elements
 local playerGui: PlayerGui
 local cannonGui: ScreenGui
-local actions: Frame
-local fling: TextButton
 local exit: TextButton
 
 -- Cannon
@@ -30,9 +28,7 @@ local modelName: string
 local function setupGui()
     playerGui = player:WaitForChild("PlayerGui")
     cannonGui = playerGui:WaitForChild("Cannon")
-    actions = cannonGui:WaitForChild("Actions")
-    fling = actions:WaitForChild("Fling")
-    exit = actions:WaitForChild("Exit")
+    exit = cannonGui:WaitForChild("Exit")
 end
 
 -- Function calls
@@ -48,7 +44,7 @@ end)
 -- On cannon enter
 ProximityPromptService.PromptTriggered:Connect(function(prompt, playerWhoTriggered)
     enterPrompt = prompt
-    modelName = prompt.Parent.Parent.Name -- this is model
+    modelName = prompt.Parent.Parent.Name -- this is model name
 
     cannonGui.Enabled = true
     enterPrompt.Enabled = false

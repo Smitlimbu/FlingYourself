@@ -1,6 +1,5 @@
 -- Services
 local ServerScriptService: ServerScriptService = game:GetService("ServerScriptService")
-local Workspace: Workspace = game:GetService("Workspace")
 local ReplicatedStorage: ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Folders
@@ -16,7 +15,32 @@ local requestEnterCannon: RemoteEvent = remotes:WaitForChild("RequestEnterCannon
 local requestExitCannon: RemoteEvent  = remotes:WaitForChild("RequestExitCannon")
 
 -- Instances
-local mainCannon = CannonClass.new(config.MainCannon)
+local cannons = {
+    ["MainCannon"] = CannonClass.new(config.MainCannon)
+}
+
+-- Events
+requestEnterCannon.OnServerEvent:Connect(function(player, modelName)
+    local cannon = cannons[modelName]
+
+    if cannon then
+        cannon:addPlayer(player)
+
+    else
+        warn(modelName .. " not found!")
+    end
+end)
+
+requestExitCannon.OnServerEvent:Connect(function(player, modelName)
+    local cannon = cannons[modelName]
+
+    if cannon then
+        cannon:removePlayer(player)
+
+    else
+        warn(modelName .. " not found!")
+    end
+end)
 
 -- Log
 warn("Loaded CannonServer")
