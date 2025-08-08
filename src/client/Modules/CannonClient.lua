@@ -25,24 +25,7 @@ local enterPrompt: ProximityPrompt
 local modelName: string
 
 -- Functions
-local function setupGui()
-    playerGui = player:WaitForChild("PlayerGui")
-    cannonGui = playerGui:WaitForChild("Cannon")
-    exit = cannonGui:WaitForChild("Exit")
-end
-
--- Function calls
-setupGui()
-
--- Events
-
--- On respawn
-player.CharacterAdded:Connect(function()
-    setupGui()
-end)
-
--- On cannon enter
-ProximityPromptService.PromptTriggered:Connect(function(prompt, playerWhoTriggered)
+local function enterCannon(prompt: ProximityPrompt)
     enterPrompt = prompt
     modelName = prompt.Parent.Parent.Name -- this is model name
 
@@ -50,15 +33,31 @@ ProximityPromptService.PromptTriggered:Connect(function(prompt, playerWhoTrigger
     enterPrompt.Enabled = false
 
     requestEnterCannon:FireServer(modelName)
-end)
+end
 
--- On cannon exit
-exit.MouseButton1Click:Connect(function()
+local function exitCannon()
     cannonGui.Enabled = false
     enterPrompt.Enabled = true
 
     requestExitCannon:FireServer(modelName)
-end)
+end
+
+local function setupGui()
+    playerGui = player:WaitForChild("PlayerGui")
+    cannonGui = playerGui:WaitForChild("Cannon")
+    exit = cannonGui:WaitForChild("Exit")
+
+    -- Connect exit event even reconnects when respawn cuz of player.CharacterAdded
+    exit.MouseButton1Click:Connect(exitCannon)
+end
+
+-- Function calls
+setupGui()
+
+-- Events
+player.CharacterAdded:Connect(setupGui)
+
+ProximityPromptService.PromptTriggered:Connect(enterCannon)
 
 -- Log
 warn("Loaded CannonClient")

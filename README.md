@@ -19,4 +19,5 @@
 
 ## Development
 - Solo developer.
+- Studio Name Juno's.
 - Built with Roblox Studio, Visual Studio Code, and Rojo.
