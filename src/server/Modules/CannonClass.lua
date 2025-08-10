@@ -22,14 +22,12 @@ function Cannon:addPlayer(player: Player)
     self.playersInside[player] = true
 
     print(self.playersInside) -- just a log haha
-    print(player.Name .. " added to cannon")
 end
 
 function Cannon:removePlayer(player: Player)
     self.playersInside[player] = nil
 
     print(self.playersInside)
-    print(player.Name .. " removed from cannon")
 end
 
 return Cannon

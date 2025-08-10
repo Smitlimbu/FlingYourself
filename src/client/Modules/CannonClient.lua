@@ -23,6 +23,7 @@ local enterPrompt: ProximityPrompt
 
 -- Simple variables
 local modelName: string
+local isInCannon: boolean = false
 
 -- Functions
 local function enterCannon(prompt: ProximityPrompt)
@@ -31,6 +32,7 @@ local function enterCannon(prompt: ProximityPrompt)
 
     cannonGui.Enabled = true
     enterPrompt.Enabled = false
+    isInCannon = true
 
     requestEnterCannon:FireServer(modelName)
 end
@@ -38,6 +40,7 @@ end
 local function exitCannon()
     cannonGui.Enabled = false
     enterPrompt.Enabled = true
+    isInCannon = false
 
     requestExitCannon:FireServer(modelName)
 end
@@ -51,11 +54,27 @@ local function setupGui()
     exit.MouseButton1Click:Connect(exitCannon)
 end
 
+local function setupDeathListener()
+    local character: Model = player.Character or player.CharacterAdded:Wait()
+    local humanoid: Humanoid = character:WaitForChild("Humanoid")
+
+    -- when player dies we just exit the cannon
+    humanoid.Died:Connect(function()
+        if isInCannon then
+            exitCannon()
+        end
+    end)
+end
+
 -- Function calls
 setupGui()
+setupDeathListener()
 
 -- Events
-player.CharacterAdded:Connect(setupGui)
+player.CharacterAdded:Connect(function()
+    setupGui()
+    setupDeathListener()
+end)
 
 ProximityPromptService.PromptTriggered:Connect(enterCannon)
 
